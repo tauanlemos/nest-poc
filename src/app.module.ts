@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/notifications'),
+    MongooseModule.forRoot('mongodb://database/notifications'),
     NotificationsModule,
   ],
   controllers: [AppController],

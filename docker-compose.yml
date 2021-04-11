@@ -1,10 +1,32 @@
 version: "3"
 
 services:
-  db:
+  app:
+    build: 
+      context: ./
+      dockerfile: local.dockerfile
+    links:
+      - database
+      - redis
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+  database:
     image: mongo
     restart: always
+    volumes:
+      - dbdata:/var/lib/mongodb
     ports:
-      - 27017:27017
+      - "27018:27017"
     environment:
       MONGODB_DATABASE: notifications
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  dbdata:
+  cachedata:
