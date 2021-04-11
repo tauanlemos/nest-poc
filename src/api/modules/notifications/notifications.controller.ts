@@ -1,9 +1,9 @@
 import { Body, Controller, Post, Get } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateNotificationDto } from './dto/create-notification.dto';
-import { Notification } from './entities/notification.entity';
-import { CreateNotificationCommand } from './commands/create-notification.command';
-import { GetNotificationsQuery } from './queries/get-notifications.query';
+import { CreateNotificationDto } from '../../../modules/notifications/application/dto/create-notification.dto';
+import { Notification } from '../../../modules/notifications/domain/entities/notification.entity';
+import { CreateNotificationCommand } from '../../../modules/notifications/application/commands/create-notification.command';
+import { GetNotificationsQuery } from '../../../modules/notifications/application/queries/get-notifications.query';
 
 @Controller('notifications')
 export class NotificationsController {

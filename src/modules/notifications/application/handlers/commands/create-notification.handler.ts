@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import {
   Notification,
   NotificationDocument,
-} from '../../entities/notification.entity';
+} from '../../../domain/entities/notification.entity';
 
 @CommandHandler(CreateNotificationCommand)
 export class CreateNotificationHandler

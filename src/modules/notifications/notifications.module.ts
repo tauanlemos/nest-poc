@@ -4,9 +4,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   Notification,
   NotificationSchema,
-} from './entities/notification.entity';
-import { CommandHandlers, QueryHandlers } from './handlers';
-import { NotificationsController } from './notifications.controller';
+} from './domain/entities/notification.entity';
+import { CommandHandlers, QueryHandlers } from './application/handlers';
+import { NotificationsController } from '../../api/modules/notifications/notifications.controller';
 
 @Module({
   imports: [

@@ -1,11 +1,11 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GetNotificationsQuery } from 'src/notifications/queries/get-notifications.query';
+import { GetNotificationsQuery } from 'src/modules/notifications/application/queries/get-notifications.query';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
   Notification,
   NotificationDocument,
-} from '../../entities/notification.entity';
+} from '../../../domain/entities/notification.entity';
 
 @QueryHandler(GetNotificationsQuery)
 export class GetNotificationsHandler
