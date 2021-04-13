@@ -4,9 +4,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   Notification,
   NotificationSchema,
-} from './domain/entities/notification.entity';
+} from './infrastructure/schemas/notification.entity';
 import { CommandHandlers, QueryHandlers } from './application/handlers';
 import { NotificationsController } from '../../api/modules/notifications/notifications.controller';
+import { NOTIFICATION_READ_REPOSITORY } from './domain/repositories/notification.read.repository';
+import { NotificationReadRepository } from './infrastructure/repositories/notification.read.repository';
+import { NOTIFICATION_WRITE_REPOSITORY } from './domain/repositories/notification.write.repository';
+import { NotificationWriteRepository } from './infrastructure/repositories/notification.write.repository';
 
 @Module({
   imports: [
@@ -19,6 +23,17 @@ import { NotificationsController } from '../../api/modules/notifications/notific
     ]),
   ],
   controllers: [NotificationsController],
-  providers: [...CommandHandlers, ...QueryHandlers],
+  providers: [
+    ...CommandHandlers,
+    ...QueryHandlers,
+    {
+      provide: NOTIFICATION_READ_REPOSITORY,
+      useClass: NotificationReadRepository,
+    },
+    {
+      provide: NOTIFICATION_WRITE_REPOSITORY,
+      useClass: NotificationWriteRepository,
+    },
+  ],
 })
 export class NotificationsModule {}

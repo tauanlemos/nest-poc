@@ -1,22 +1,23 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { CreateNotificationCommand } from  '../../commands/create-notification.command';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Inject } from '@nestjs/common';
+import { CreateNotificationCommand } from '../../commands/create-notification.command';
 import {
-  Notification,
-  NotificationDocument,
-} from '../../../domain/entities/notification.entity';
+  NOTIFICATION_WRITE_REPOSITORY,
+  INotificationWriteRepository,
+} from '../../../domain/repositories/notification.write.repository';
+import { NotificationModel } from 'src/modules/notifications/domain/models/notification.model';
 
 @CommandHandler(CreateNotificationCommand)
 export class CreateNotificationHandler
   implements ICommandHandler<CreateNotificationCommand> {
-  constructor(
-    @InjectModel(Notification.name)
-    private readonly notificationModel: Model<NotificationDocument>,
-  ) {}
+    constructor(
+      @Inject(NOTIFICATION_WRITE_REPOSITORY)
+      private readonly repository: INotificationWriteRepository,
+    ) {}
 
   async execute(command: CreateNotificationCommand) {
-    const instance = new this.notificationModel(command);
-    return instance.save();
+    const notification = new NotificationModel(null, command.message, command.created_by);
+
+    return this.repository.create(notification);
   }
 }

@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Get } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateNotificationDto } from '../../../modules/notifications/application/dto/create-notification.dto';
-import { Notification } from '../../../modules/notifications/domain/entities/notification.entity';
+import { Notification } from '../../../modules/notifications/infrastructure/schemas/notification.entity';
 import { CreateNotificationCommand } from '../../../modules/notifications/application/commands/create-notification.command';
 import { GetNotificationsQuery } from '../../../modules/notifications/application/queries/get-notifications.query';
 
