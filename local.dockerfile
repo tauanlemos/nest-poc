@@ -1,9 +1,12 @@
-FROM node:15.9.0
+FROM node
 
 WORKDIR /app
 
-copy . ./app
+COPY . ./
 
-RUN npm install 
+RUN npm i -g @nestjs/cli
+
+RUN yarn 
+RUN npm run build
 
 CMD [ "npm", "run", "start:dev" ]
