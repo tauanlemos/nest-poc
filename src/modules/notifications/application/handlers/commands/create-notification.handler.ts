@@ -10,13 +10,17 @@ import { NotificationModel } from 'src/modules/notifications/domain/models/notif
 @CommandHandler(CreateNotificationCommand)
 export class CreateNotificationHandler
   implements ICommandHandler<CreateNotificationCommand> {
-    constructor(
-      @Inject(NOTIFICATION_WRITE_REPOSITORY)
-      private readonly repository: INotificationWriteRepository,
-    ) {}
+  constructor(
+    @Inject(NOTIFICATION_WRITE_REPOSITORY)
+    private readonly repository: INotificationWriteRepository,
+  ) {}
 
   async execute(command: CreateNotificationCommand) {
-    const notification = new NotificationModel(null, command.message, command.created_by);
+    const notification = new NotificationModel(
+      null,
+      command.message,
+      command.created_by,
+    );
 
     return this.repository.create(notification);
   }
