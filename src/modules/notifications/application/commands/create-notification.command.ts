@@ -1,6 +1,11 @@
+import { CreateNotificationDto } from "../dto/create-notification.dto";
+
 export class CreateNotificationCommand {
-  constructor(
-    public readonly message: string,
-    public readonly created_by: string,
-  ) {}
+  public createdBy: string;
+  public message: string;
+
+  constructor(createNotificationDto: CreateNotificationDto) {
+    this.createdBy = createNotificationDto.created_by;
+    this.message = createNotificationDto.message;
+  }
 }

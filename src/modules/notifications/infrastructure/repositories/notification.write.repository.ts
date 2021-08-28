@@ -16,10 +16,19 @@ export class NotificationWriteRepository
     private readonly notificationDbModel: Model<NotificationDocument>,
   ) {}
 
-  async create(notification: NotificationModel): Promise<NotificationModel> {
-    const instance = new this.notificationDbModel(notification.toCreate());
+  public async create(
+    notification: NotificationModel,
+  ): Promise<NotificationModel> {
+    const instance = new this.notificationDbModel(this.toCreate(notification));
     const item = await instance.save();
 
     return new NotificationModel(item.id, item.message, item.created_by);
+  }
+
+  private toCreate(notification: NotificationModel): any {
+    return {
+      message: notification.message,
+      created_by: notification.createdBy,
+    };
   }
 }

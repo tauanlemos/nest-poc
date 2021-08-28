@@ -19,7 +19,7 @@ export class CreateNotificationHandler
     const notification = new NotificationModel(
       null,
       command.message,
-      command.created_by,
+      command.createdBy,
     );
 
     return this.repository.create(notification);

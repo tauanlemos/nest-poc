@@ -1,29 +1,19 @@
 import { Body, Controller, Post, Get } from '@nestjs/common';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateNotificationDto } from '../../../modules/notifications/application/dto/create-notification.dto';
 import { Notification } from '../../../modules/notifications/infrastructure/schemas/notification.entity';
-import { CreateNotificationCommand } from '../../../modules/notifications/application/commands/create-notification.command';
-import { GetNotificationsQuery } from '../../../modules/notifications/application/queries/get-notifications.query';
+import { NotificationService } from 'src/modules/notifications/application/services/notification.service';
 
 @Controller('notifications')
 export class NotificationsController {
-  constructor(
-    private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
-    ) {}
+  constructor(private readonly service: NotificationService) {}
 
   @Post()
   async create(@Body() createNotificationDto: CreateNotificationDto) {
-    return this.commandBus.execute(
-      new CreateNotificationCommand(
-        createNotificationDto.message,
-        createNotificationDto.created_by,
-      ),
-    );
+    return this.service.create(createNotificationDto);
   }
 
   @Get()
   async findAll(): Promise<Notification[]> {
-    return this.queryBus.execute(new GetNotificationsQuery());
+    return this.service.findAll();
   }
 }
